@@ -9,9 +9,9 @@ Iterates through some given x and y values and generates an image that shows the
 
 # Installing/Running
 
-`make
-./mandelbrot`
+`make`
+`./mandelbrot`
 
 # To-Do
 
-1. Add commnand line argument support
+1. Add command line argument support
