@@ -4,8 +4,8 @@ Iterates through some given x and y values and generates an image that shows the
 
 # Example Outputs:
 
-!(/screenshots/output.png?raw=true "Output 1")
-!(/screenshots/test.png?raw=true "Output 2")
+![](/screenshots/output.png?raw=true "Output 1")
+![](/screenshots/test.png?raw=true "Output 2")
 
 # Installing/Running
 
