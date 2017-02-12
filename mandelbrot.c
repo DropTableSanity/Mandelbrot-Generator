@@ -5,7 +5,7 @@
 
 // desc: iterates through given coordinates and checks for divergence in the Mandelbrot set
 // args:
-//      x, y: x/y-coordinate
+//      x, y:      x/y-coordinate
 //      magnitude: max amount of iterations allowed
 // return: int value for amount of iterations done before divergence. Will be magnitude if
 //         the coordinates converge
@@ -34,7 +34,7 @@ int main(int argc, char* argv) {
     long double xEnd = 3;       // enidng x coordinate
     long double yStart = -3;    // staring y coordinate
     long double yEnd = 3;       // ending y coordinate
-    int max = 20;               // max rgb digit to be written to the output file
+    int max = 255;         // max rgb digit to be written to the output file
     
     FILE* output = create_ppm("output.ppm", 6000, 6000, max);  // get file handle for output ppm
     
@@ -57,7 +57,6 @@ int main(int argc, char* argv) {
         
     }
 
-    printf("\n%Lf pixels written\n", i);
     return 0;
     
 }
