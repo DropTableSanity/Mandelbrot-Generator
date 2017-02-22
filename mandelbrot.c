@@ -63,14 +63,12 @@ int main(int argc, char** argv) {
 
     }
 
-    FILE* output = create_ppm("output.ppm", ((abs(args.xStart) + abs(args.xEnd)) / args.delta), 
-                                            ((abs(args.yStart) + abs(args.yEnd)) / args.delta), 
+    FILE* output = create_ppm("output.ppm", ((args.xEnd - args.xStart) / args.delta), 
+                                            ((args.yEnd - args.yStart) / args.delta), 
                                             args.max);  // get file handle for output ppm
     
     printf("drawing a %Lf x %Lf ppm to output.ppm...\n", (abs(args.xStart) + abs(args.xEnd)) / args.delta, 
                                                          (abs(args.yStart) + abs(args.yEnd)) / args.delta);
-    
-    int i = 0;
 
     // nested loops for moving through xy coordinates
     // moves from max y value to min y value, iterating via delta
@@ -84,13 +82,11 @@ int main(int argc, char** argv) {
             // 0xFF FF FF
             //   R  G  B
             write_pixel((temp >> 16) & 0xFF, (temp >> 8) & 0xFF, (temp) & 0xFF, output);
-            i++;
 
         }
         
         
     }
-    printf("%d", i);
  
     return 0;
     
