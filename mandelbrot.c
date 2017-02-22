@@ -1,4 +1,5 @@
 #include <complex.h>
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include "ppm.h"
@@ -25,6 +26,8 @@ int check_args(int argc, char** argv) {
     sscanf(argv[4], "%Lf", &args.yEnd);     // ending Y digit
     sscanf(argv[5], "%Lf", &args.delta);    // difference in each XY pair
     sscanf(argv[6], "%Lf", &args.max);      // max RGB value
+
+    return 0;
 
 }
 
@@ -55,34 +58,40 @@ int compute(double x, double y, int magnitude) {
 
 
 int main(int argc, char** argv) {
-    long double delta = .001;   // difference in each xy pair
-    long double xStart = 0;     // starting x coordinate
-    long double xEnd = 1;       // enidng x coordinate
-    long double yStart = 0;     // staring y coordinate
-    long double yEnd = 1;       // ending y coordinate
-    int max = 255;              // max rgb digit to be written to the output file
+    if(check_args(argc, argv) != 0) {     // check and parse args
+        return 0;   
+
+    }
+
+    FILE* output = create_ppm("output.ppm", ((abs(args.xStart) + abs(args.xEnd)) / args.delta), 
+                                            ((abs(args.yStart) + abs(args.yEnd)) / args.delta), 
+                                            args.max);  // get file handle for output ppm
     
-    FILE* output = create_ppm("output.ppm", 1000, 1000, max);  // get file handle for output ppm
+    printf("drawing a %Lf x %Lf ppm to output.ppm...\n", (abs(args.xStart) + abs(args.xEnd)) / args.delta, 
+                                                         (abs(args.yStart) + abs(args.yEnd)) / args.delta);
     
+    int i = 0;
+
     // nested loops for moving through xy coordinates
     // moves from max y value to min y value, iterating via delta
-    for(long double y = yEnd; y >= yStart; y -= delta) {
+    for(long double y = args.yEnd; y > args.yStart; y -= args.delta) {
         
         // moves from min x value to max x value, iterating via delta
-        for(long double x = xStart; x <= xEnd; x += delta) {
+        for(long double x = args.xStart; x < args.xEnd; x += args.delta) {
             int temp = compute(x, y, 0xFFFFFF);                                             // get amount of iterations before divergence
             
             // take the temp value and mask the bits to get the RGB value
             // 0xFF FF FF
             //   R  G  B
             write_pixel((temp >> 16) & 0xFF, (temp >> 8) & 0xFF, (temp) & 0xFF, output);
+            i++;
 
         }
         
-        printf("%Lf\n", y);  // print finished y value. Icky debug stuff
         
     }
-
+    printf("%d", i);
+ 
     return 0;
     
 }
