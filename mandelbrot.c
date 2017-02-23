@@ -63,20 +63,20 @@ int main(int argc, char** argv) {
 
     }
 
-    FILE* output = create_ppm("output.ppm", ((args.xEnd - args.xStart) / args.delta), 
-                                            ((args.yEnd - args.yStart) / args.delta), 
-                                            args.max);  // get file handle for output ppm
+    int width = (args.xEnd - args.xStart) / args.delta;
+    int height = (args.yEnd - args.yStart) / args.delta;
+
+    FILE* output = create_ppm("output.ppm", width, height, args.max);       // get file handle for output ppm
     
-    printf("drawing a %Lf x %Lf ppm to output.ppm...\n", (abs(args.xStart) + abs(args.xEnd)) / args.delta, 
-                                                         (abs(args.yStart) + abs(args.yEnd)) / args.delta);
+    printf("drawing a %d x %d ppm to output.ppm...\n", width, height);
 
     // nested loops for moving through xy coordinates
     // moves from max y value to min y value, iterating via delta
-    for(long double y = args.yEnd; y > args.yStart; y -= args.delta) {
+    for(long double y = args.yEnd; y > args.yStart + args.delta; y -= args.delta) {
         
         // moves from min x value to max x value, iterating via delta
-        for(long double x = args.xStart; x < args.xEnd; x += args.delta) {
-            int temp = compute(x, y, 0xFFFFFF);                                             // get amount of iterations before divergence
+        for(long double x = args.xStart; x < args.xEnd - args.delta; x += args.delta) {
+            int temp = compute(x, y, 0xFFFFFF);                            // get amount of iterations before divergence
             
             // take the temp value and mask the bits to get the RGB value
             // 0xFF FF FF
