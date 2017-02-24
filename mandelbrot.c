@@ -72,10 +72,10 @@ int main(int argc, char** argv) {
 
     // nested loops for moving through xy coordinates
     // moves from max y value to min y value, iterating via delta
-    for(long double y = args.yEnd; y > args.yStart + args.delta; y -= args.delta) {
+    for(long double y = args.yEnd; y > args.yStart; y -= args.delta) {
         
         // moves from min x value to max x value, iterating via delta
-        for(long double x = args.xStart; x < args.xEnd - args.delta; x += args.delta) {
+        for(long double x = args.xStart; x < args.xEnd; x += args.delta) {
             int temp = compute(x, y, 0xFFFFFF);                            // get amount of iterations before divergence
             
             // take the temp value and mask the bits to get the RGB value
