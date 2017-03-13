@@ -1,2 +1,2 @@
 case all:
-	gcc mandelbrot.c -lm -o mandelbrot
+	gcc src/mandelbrot.c -lm -o mandelbrot

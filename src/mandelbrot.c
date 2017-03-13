@@ -47,7 +47,7 @@ int compute(double x, double y, int magnitude) {
     
     // iterate through set, if b ever goes over 2, it diverges
     while(cabs(b) < 2 && iterations < magnitude) {
-        b = (b * b) + a;
+        b = cpow(b, 2) + a;
         iterations++;
         
     }
@@ -67,6 +67,8 @@ int main(int argc, char** argv) {
     int height = (args.yEnd - args.yStart) / args.delta;
 
     FILE* output = create_ppm("output.ppm", width, height, args.max);       // get file handle for output ppm
+    
+    if(output == NULL) return 0;
     
     printf("drawing a %d x %d ppm to output.ppm...\n", width, height);
 
