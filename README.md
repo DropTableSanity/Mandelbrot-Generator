@@ -8,10 +8,6 @@ Iterates through some given x and y values and generates an image that shows the
 ![](/screenshots/test.png?raw=true "Output 2")
 
 # Installing/Running
-
-`make`
-`./mandelbrot`
-
-# To-Do
-
-1. Add command line argument support
+1. 'git clone https://github.com/Thindex/mandelbrot-generator'
+2. `make`
+3. `./mandelbrot`
